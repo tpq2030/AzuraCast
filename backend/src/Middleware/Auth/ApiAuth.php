@@ -99,19 +99,6 @@ final class ApiAuth extends AbstractAuth
             return $apiKeyHeaders[0];
         }
 
-        // Check cookies
-        $cookieParams = $request->getCookieParams();
-        if (!empty($cookieParams['token']) && SplitToken::isValidKeyString($cookieParams['token'])) {
-            return $cookieParams['token'];
-        }
-
-        // Check URL parameters as last resort
-        $queryParams = $request->getQueryParams();
-        $queryApiKey = $queryParams['api_key'] ?? null;
-        if (!empty($queryApiKey) && SplitToken::isValidKeyString($queryApiKey)) {
-            return $queryApiKey;
-        }
-
         return null;
     }
 }
